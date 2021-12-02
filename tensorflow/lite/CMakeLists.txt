@@ -595,6 +595,9 @@ add_subdirectory(${TFLITE_SOURCE_DIR}/tools/benchmark)
 # The label_image example.
 add_subdirectory(${TFLITE_SOURCE_DIR}/examples/label_image)
 
+# The label_image_odt example
+add_subdirectory(${TFLITE_SOURCE_DIR}/examples/label_image_odt)
+
 # Python interpreter wrapper.
 if(TFLITE_PYTHON_WRAPPER_BUILD_CMAKE2)
     unset(PYTHON_EXECUTABLE CACHE) # Force to detect the Python Interpter at CMake rerun to detect env change.

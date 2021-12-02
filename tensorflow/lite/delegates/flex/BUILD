@@ -122,6 +122,12 @@ tflite_flex_cc_library(
     visibility = ["//visibility:public"],
 )
 
+tflite_flex_cc_library(
+    name = "delegate_odt",
+   # models = ["/home/nxf39574/REPOS/tf-on-device-training/saved_modelodt-model.tflite"],
+    visibility = ["//visibility:public"],
+)
+
 # Shared lib target for convenience, pulls in the standard set of TensorFlow
 # ops and kernels. The output library name is platform dependent:
 #   - Linux/Android: `libtensorflowlite_flex.so`

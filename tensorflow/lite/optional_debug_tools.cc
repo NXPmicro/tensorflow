@@ -414,18 +414,20 @@ void PrintInterpreterState(const Interpreter* interpreter) {
       tensor_mem_info.Update(tensor_index, *tensor);
     }
 
-    printf("Tensor %3s %-25s %-15s %-18s %-18s %-10s %-16s\n", "ID", "Name",
-           "Type", "AllocType", "Size (Bytes/MB)", "Shape", "MemAddr-Offset");
+    printf("Tensor %3s %-100s %-15s %-18s %-18s %-10s %-10s% -16s\n", "ID", "Name",
+           "Type", "AllocType", "Size (Bytes/MB)", "Shape", "Shape2", "MemAddr-Offset");
     for (size_t tensor_index = 0; tensor_index < subgraph.tensors_size();
          tensor_index++) {
       const TfLiteTensor* tensor =
           subgraph.tensor(static_cast<int>(tensor_index));
-      printf("Tensor %3zu %-25s %-15s %-18s %-8zu / %.2f ", tensor_index,
-             TruncateString(tensor->name, 25, /*truncate_at_end*/ true).c_str(),
+      printf("Tensor %3zu %-100s %-15s %-18s %-8zu / %.2f ", tensor_index,
+             TruncateString(tensor->name, 100, /*truncate_at_end*/ true).c_str(),
              TruncateString(TensorTypeName(tensor->type), 15).c_str(),
              TruncateString(AllocTypeName(tensor->allocation_type), 18).c_str(),
              tensor->bytes, (static_cast<float>(tensor->bytes) / (1 << 20)));
       PrintTfLiteIntVector(tensor->dims, /*collapse_consecutives*/ false);
+      printf(" ");
+      PrintTfLiteIntVector(tensor->dims_signature, false);
       const int64_t start_offset =
           tensor_mem_info.GetOffsetFromArenaStart(*tensor);
       const int64_t end_offset =
